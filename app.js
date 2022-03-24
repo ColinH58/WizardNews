@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const volleyball = require("volleyball");
 
 app.use(express.static('public'));
-app.use(bodyParser);
+app.use(bodyParser.json());
 app.use(volleyball);
 
 app.get("/", (req, res, next) => {
