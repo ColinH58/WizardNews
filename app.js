@@ -1,3 +1,4 @@
+//WIZARD NEWS
 const express = require("express");
 const app = express();
 
