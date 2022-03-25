@@ -54,17 +54,15 @@ app.get('/posts/:id', (req, res, next) => {
   <body>
     <div class="news-list">
       <header><img src="/logo.png"/>Wizard News</header>
-      ${post.map(onePost => `
         <div class='news-item'>
           <p>
-            <span class="news-position">${onePost.id}. ▲</span>${onePost.title}
-            <small>(by ${onePost.name})</small>
+            <span class="news-position">${post.id}. ▲</span>${post.title}
+            <small>(by ${post.name})</small>
           </p>
           <small class="news-info">
-            ${onePost.upvotes} upvotes | ${onePost.date}
+            ${post.upvotes} upvotes | ${post.date}
           </small>
-        </div>`
-      ).join('')}
+        </div>
     </div>
   </body>
 </html>`
