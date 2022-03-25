@@ -1,4 +1,3 @@
-//WIZARD NEWS
 const express = require("express");
 const app = express();
 const volleyball = require("volleyball");
@@ -42,7 +41,7 @@ app.get("/", (req, res, next) => {
 //   console.log( req.params.id );
 // });
 
-app.get('/posts/:id', (req, res) => {
+app.get('/posts/:id', (req, res, next) => {
   const id = req.params.id;
   const post = postBank.find(id);
   const html = 
@@ -55,14 +54,14 @@ app.get('/posts/:id', (req, res) => {
   <body>
     <div class="news-list">
       <header><img src="/logo.png"/>Wizard News</header>
-      ${posts.map(post => `
+      ${post.map(onePost => `
         <div class='news-item'>
           <p>
-            <span class="news-position">${post.id}. ▲</span>${post.title}
-            <small>(by ${post.name})</small>
+            <span class="news-position">${onePost.id}. ▲</span>${onePost.title}
+            <small>(by ${onePost.name})</small>
           </p>
           <small class="news-info">
-            ${post.upvotes} upvotes | ${post.date}
+            ${onePost.upvotes} upvotes | ${onePost.date}
           </small>
         </div>`
       ).join('')}
