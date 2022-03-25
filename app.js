@@ -56,12 +56,13 @@ app.get('/posts/:id', (req, res, next) => {
       <header><img src="/logo.png"/>Wizard News</header>
         <div class='news-item'>
           <p>
-            <span class="news-position">${post.id}. ▲</span>${post.title}
+            <span class="news-position">${post.id}. ▲</span><a href="/">${post.title}</a>
             <small>(by ${post.name})</small>
           </p>
           <small class="news-info">
             ${post.upvotes} upvotes | ${post.date}
           </small>
+          <p>${post.content}</p>
         </div>
     </div>
   </body>
