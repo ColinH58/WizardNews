@@ -92,5 +92,5 @@ app.use((err, req, res, next) => {
   res.status(404).send(errorMessage)
 })
 
-const PORT = 1337;
+const { PORT = 1337 } = process.env;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
