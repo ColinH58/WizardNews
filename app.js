@@ -1,12 +1,12 @@
 const express = require("express");
-const app = express();
 const volleyball = require("volleyball");
 const postBank = require("./postBank");
+const app = express();
 
+app.use(volleyball);
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(volleyball);
 
 app.get("/", (req, res, next) => {
   const posts = postBank.list()
@@ -37,13 +37,12 @@ app.get("/", (req, res, next) => {
   res.send(html)
 });
 
-// app.get( '/posts/:id', (req, res) => {
-//   console.log( req.params.id );
-// });
-
 app.get('/posts/:id', (req, res, next) => {
   const id = req.params.id;
   const post = postBank.find(id);
+  if (!post.id) {
+    next(err)
+  } 
   const html = 
   `<!DOCTYPE html>
   <html>
@@ -69,6 +68,29 @@ app.get('/posts/:id', (req, res, next) => {
 </html>`
   res.send(html);
 });
+
+app.use((err, req, res, next) => {
+  console.error(err)
+  const errorMessage = 
+  `<!DOCTYPE html>
+  <html>
+  <head>
+    <title>Wizard News</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="news-list">
+      <header><img src="/logo.png"/>Wizard News</header>
+        <div class='news-item'>
+          <p>Page Not Found!</p>
+          <br>
+          <a href="/">Click Here to Go Home</a>
+        </div>
+    </div>
+  </body>
+</html>`
+  res.status(404).send(errorMessage)
+})
 
 const PORT = 1337;
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
